@@ -1,0 +1,5 @@
+vendor/**
+!vendor/manifest
+terraform/.terraform
+*.so
+*.zip
