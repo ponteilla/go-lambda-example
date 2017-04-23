@@ -15,7 +15,7 @@ module "api" {
   name       = "${var.name}-api-${var.env}"
   filename   = "../lambda/api/handler.zip"
   vpc_id     = "${module.vpc.id}"
-  subnet_ids = "${module.vpc.public_subnet_ids}"
+  subnet_ids = "${module.vpc.private_subnet_ids}"
 }
 
 module "api_gateway" {

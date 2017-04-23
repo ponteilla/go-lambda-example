@@ -14,14 +14,15 @@ func init() {
 	ln := net.Listen()
 	Handle = apigatewayproxy.New(ln, nil).Handle
 
-	http.Handle("/status", status())
+	http.Handle("/", root())
+
 	go func() {
 		defer ln.Close()
 		http.Serve(ln, nil)
 	}()
 }
 
-func status() http.Handler {
+func root() http.Handler {
 	return http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		defer req.Body.Close()
 
