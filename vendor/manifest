@@ -36,6 +36,14 @@
 			"notests": true
 		},
 		{
+			"importpath": "github.com/pressly/chi",
+			"repository": "https://github.com/pressly/chi",
+			"vcs": "git",
+			"revision": "a57b1fbe2989382bdef31d3793d4a50a0e4a1d7c",
+			"branch": "master",
+			"notests": true
+		},
+		{
 			"importpath": "golang.org/x/sys/unix",
 			"repository": "https://go.googlesource.com/sys",
 			"vcs": "git",

@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "lambda" {
   filename         = "${var.filename}"
-  function_name    = "${var.name}"
+  function_name    = "${var.name}-${var.env}"
   role             = "${aws_iam_role.iam_role_for_lambda.arn}"
   handler          = "${var.handler}"
   runtime          = "python2.7"
@@ -10,10 +10,14 @@ resource "aws_lambda_function" "lambda" {
     subnet_ids         = ["${var.subnet_ids}"]
     security_group_ids = ["${aws_security_group.lambda_security_group.id}"]
   }
+
+  environment {
+    variables = "${merge(var.environment_variables, map("ENV", var.env))}"
+  }
 }
 
 resource "aws_security_group" "lambda_security_group" {
-  name   = "${var.name}"
+  name   = "${var.name}-${var.env}"
   vpc_id = "${var.vpc_id}"
 
   egress {
@@ -25,7 +29,7 @@ resource "aws_security_group" "lambda_security_group" {
 }
 
 resource "aws_iam_role" "iam_role_for_lambda" {
-  name = "iam_role_for_lambda_${replace(var.name, "-", "_")}"
+  name = "${replace(format("%s-%s", var.name, var.env), "-", "_")}"
 
   assume_role_policy = <<EOF
 {
@@ -45,8 +49,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "policy_for_lambda" {
-  name = "policy_for_lambda_${replace(var.name, "-", "_")}"
-  role = "${aws_iam_role.iam_role_for_lambda.id}"
-
+  name   = "${replace(format("%s-%s", var.name, var.env), "-", "_")}"
+  role   = "${aws_iam_role.iam_role_for_lambda.id}"
   policy = "${var.role_policy}"
 }

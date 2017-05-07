@@ -1,5 +1,7 @@
 variable "name" {}
 
+variable "env" {}
+
 variable "filename" {}
 
 variable "vpc_id" {}
@@ -10,6 +12,11 @@ variable "subnet_ids" {
 
 variable "handler" {
   default = "handler.Handle"
+}
+
+variable "environment_variables" {
+  type    = "map"
+  default = {}
 }
 
 variable "role_policy" {

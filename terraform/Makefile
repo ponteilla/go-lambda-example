@@ -8,13 +8,13 @@ init:
 	terraform init -backend=true -backend-config="key=$(ENV).tfstate"
 	terraform get
 
-plan:
+plan: init
 	terraform plan
 
-apply:
+apply: init
 	terraform apply
 
-destroy:
+destroy: init
 	terraform destroy
 
 clean:

@@ -18,6 +18,9 @@ deps:
 	@go get -u github.com/FiloSottile/gvt
 	@gvt restore
 
+tests:
+	@go test -v $(shell go list ./... | grep -v /vendor/)
+
 all: $(CMDS)
 
 $(CMDS):
@@ -31,4 +34,4 @@ $(CMDS):
 	@mv /package/handler.zip $@/handler.zip
 	@chown $(shell stat -c '%u:%g' .) $@/handler.so $@/handler.zip
 
-.PHONY: docker deps all $(CMDS)
+.PHONY: docker deps tests all $(CMDS)

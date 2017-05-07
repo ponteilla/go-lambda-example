@@ -1,5 +1,7 @@
 vendor/**
 !vendor/manifest
 terraform/.terraform
+terraform/*.tfstate.backup
+terraform/*.tfstate
 *.so
 *.zip
